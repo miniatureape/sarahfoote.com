@@ -4,7 +4,7 @@ import os
 INTERNAL_IPS = ('127.0.0.1',)
 
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -74,7 +74,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'sarahfoote.main',
     'ckeditor',
-    'django_extensions',    
 )
 
 LOGIN_URL = '/login'
@@ -102,10 +101,10 @@ CKEDITOR_BROWSE_HEIGHT = "500"
 
 # Add debug toolbar if you're debugging.
 if DEBUG:
-    LOCAL_MIDDLEWARE_CLASSES = (
+    MIDDLEWARE_CLASSES += (
         'debug_toolbar.middleware.DebugToolbarMiddleware',        
     )
-    LOCAL_INSTALLED_APPS =(
+    INSTALLED_APPS += (
         'debug_toolbar',
     )
 
