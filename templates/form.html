@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <div id="content">
+    {% block admin %}
+    {% endblock %}
+    
+        <div class="wrapper">
+
+        {% block formtitle %}
+            <h2>Change Form</h2>
+        {% endblock %}
+        
+        {% block form %}
+            <div class="edit">
+                <form action="" method="post" enctype="multitype/form-data">
+                {% csrf_token %}
+                {{ form.as_ul }}
+                <input type="submit" class="submit">
+                </form>
+            </div>
+        {% endblock %}
+
+        </div>
+    </div>
+{% endblock %}

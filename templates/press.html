@@ -1,0 +1,36 @@
+            {% extends "base.html" %}
+            {% block content %}
+            <div id="content">
+
+                {% if user.is_authenticated %}
+                <div class="admin"><a href="{% url main_add_press %}">Add Press</a></div>
+                {% endif %}
+                
+                <div class="wrapper">
+                    <div class="main">
+                        <h2>Press</h2>
+                        <ul class="press-list">
+                        {% for item in press_list %}
+                            <li>
+                            <h3><em><a href="{{ item.url }}" class="title">{{ item.title }}</a></em>
+                                    {% if user.is_authenticated %}
+                                        <span class="admin">
+                                            <a href="{% url main_edit_press object_id=item.id %}">edit Item</a> /
+                                            <a href="{% url main_delete_press object_id=item.id %}">remove<a>
+                                        </span>
+                                    {% endif %}                        
+                                </h3>
+                                {{ item.publication }},<span>{{ item.date }}</span>
+                                {% if item.description %}<p>{{ item.description }}</p>{% endif %}
+                                {% if item.file %}
+                                <p><em>download</em>:
+                                <a href="{{ item.file.file.url }}" title="download file">{{ item.file.name }}</a>
+                                </p>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    <!-- <div class="sidebar"></div> -->
+                </div>  
+            {% endblock %}

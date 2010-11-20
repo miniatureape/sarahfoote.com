@@ -1,0 +1,27 @@
+    {% extends "base.html" %}
+    {% block content %}
+    <div id="content">
+
+        {% if user.is_authenticated %}
+        <div class="admin"><a href="{% url main_edit_about object_id=aboutobj.id %}">Edit</a></div>
+        {% endif %}
+
+        <div class="wrapper">
+            <div class="main"> 
+            <h2>Sarah Foote</h2>
+            {% if aboutobj.photo %}
+                <img class="profile-pic" src="{{ aboutobj.photo.url }}" alt="Sarah Foote">
+            {% endif %}
+            <p>{{ aboutobj.desc }}</p>
+            </div>
+
+			<div class="sidebar">
+                <p><a href="{% url main_contact %}">Contact Sarah</a>
+				<ul>
+                    {% if aboutobj.phone %} <li><span>Phone: </span>{{ aboutobj.phone }}</li>{% endif %}
+                    {% if aboutobj.alturl %}<li><span>Also at: </span><a href="{{ aboutobj.alturl}}">{{ aboutobj.alturl_title }}</a></li>{% endif %}
+                </ul>
+			</div>
+
+        </div>
+    {% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block header %}{% endblock %}
+{% block content %}
+<div class="popup">
+    <h2>Add {{ field }}</h2>
+    <form method="post" action="" enctype="multitype/form-data">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit">
+    </form>
+</div>
+{% endblock %}

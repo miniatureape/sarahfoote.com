@@ -1,0 +1,13 @@
+{% extends "blog-base.html" %}
+    
+    {% block extranav %}
+    <div class="sidebar">
+        <h3>Archive</h3>
+        <ul>
+            {% for date in date_list %}
+            <li><a href="{% url main_posts_year year=date|date:"Y" %}">{{ date|date:"Y" }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="clear"></div>
+    {% endblock %}

@@ -1,0 +1,14 @@
+            {% extends "base.html" %}
+            {% block content %}
+            <div id="content">
+                <div class="wrapper">
+                {% if form %}
+                <h2>Contact</h2>
+                <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_ul }}
+                <input type="submit" value="send" class="submit">
+                </form>
+                {% endif %}
+            </div>
+            {% endblock %}

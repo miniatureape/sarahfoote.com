@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+    {% block extra_head %}
+    <script src="{{ MEDIA_URL }}js/mootools-1.2.4.4-more.js" type="text/javascript"></script>
+    <script src="{{ MEDIA_URL }}js/Loop.js" type="text/javascript"></script>
+    <script src="{{ MEDIA_URL }}js/SlideShow.js" type="text/javascript"></script>
+    <script src="{{ MEDIA_URL }}js/SlideShowStart.js" type="text/javascript"></script>
+    {% endblock %}
+
+    {% block content %}
+	<div id="content">
+		{% if user.is_authenticated %}
+		<div id="admin" class="admin"><a href="{% url main_add_item %}">add item</a></div>
+		{% endif %}
+		<div class="wrapper">
+			<div class="main">
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.desc }}</p>
+                {% if item.photos.all %}
+                <div id="item-slideshow">
+                    {% for photo in item.photos.all %}
+                    <img src="{{ photo.image.url }}" alt="{{ photo.alt }}" width="{{ photo.image.width }}" height="{{ photo.image.height }}">
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="item-meta">
+                </div>
+                {% if user.is_authenticated %}
+                <div class="admin"><a href="{% url main_edit_item item.id %}">edit</a></div>
+                {% endif %}
+			</div>
+			<div class="sidebar">
+				<h3>Item Information</h3>
+                    <div class="category">
+                        <span>category: </span>
+                        <a href="{% url main_list_items_by_category category=item.category %}" title="view all items in {{ item.category }}">{{ item.category }}</a>
+                    </div>
+                    {% if item.url %}
+                    <div class="purchase">
+                        <span>purchase: </span> <a href="{{ item.url }}" title="Purchase This Item" class="price">$ {{ item.price }}</span></a>
+                    </div>
+                    {% endif %}
+                    {% if item.thumb %}
+                        <div class="item-thumb"><img src="{{ item.thumb.url }}" /></div>
+                    {% endif %}
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+	{% block content %}
+	<div id="content">
+		{% if user.is_authenticated %}
+		<div id="admin" class="admin"><a href="{% url main_add_item %}">add item</a></div>
+		{% endif %}
+		<div class="wrapper">
+			<div class="main">
+				<h2>For Sale{% if category %}: {{ category }}{% endif %}</h2>
+				<ul class="items">
+					{% for item in item_list %}
+					<li>{% include 'item-thumb.html' %}</li>
+					 {% endfor %}
+				</ul>
+			</div>
+			<div class="sidebar">
+				<h3>View by Category</h3>
+                {% url main_list_items as buy %}
+				<ul>
+                    {% ifnotequal request.path buy %}
+                    <li><a href="{% url main_list_items %}">&larr; View All</a></li>
+                    {% endifnotequal %}
+					{% for cat in categories %}
+					<li><a href="{% url main_list_items_by_category category=cat %}"
+						{% ifequal category cat %}class="selected" {% endifequal %}>{{ cat }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	{% endblock %}

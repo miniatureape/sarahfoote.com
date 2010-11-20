@@ -1,0 +1,10 @@
+{% extends "form.html" %}
+    {% block admin %}
+    <div class="admin">
+        <a href="{{ object.get_absolute_url }}">cancel</a>
+    </div>
+    {% endblock %}
+    
+    {% block formtitle %}
+    <h2>Edit</h2>
+    {% endblock %}

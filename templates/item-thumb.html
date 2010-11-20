@@ -1,0 +1,4 @@
+    {% if item.thumb %}
+    <a class="blog-item-img-link" href="{% url main_item_detail item.slug %}"><img src="{{ item.thumb.url }}" alt="{{ item.title }}" /></a>
+    {% endif %}
+    <p><a class="item-thumb-link" href="{% url main_item_detail item.slug %}">{{ item.title }}</a></p>

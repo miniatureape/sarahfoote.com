@@ -1,0 +1,18 @@
+
+
+class Thing(object):
+    def funct(self):
+        print "Called funct in Thing"
+        self.nextfunct()
+    def nextfunct(self):
+        print "Called next funct in Thing"
+
+class OtherThing(Thing):
+    def funct(self):
+        print "Caled funct in Other thing"
+        super(OtherThing, self).funct()
+    def nextfunct(self):
+        print "Called nextfunct in other thing"
+
+o = OtherThing()
+o.funct()

@@ -1,0 +1,16 @@
+Project Ideas:
+
+
+WebOS Budgeting Tool:
+
+Simple budgeting tool. Allows you to enter in amounts. By default it saves them to the day. After they are entered, you are presented with today's list. At that point you can click one and pin it to another day. 
+
+Also allows you to take photos (of receipts, etc). These are pinned to a day too and entered into a queue where you are ask to transcribe the cost.
+
+Log/journal:
+
+Calender based command line tool that shows you the days you have and haven't written your log (and a list of words for each day).
+
+You can hook to several backend to save. (Save to file, save to web over http, etc.)
+
+

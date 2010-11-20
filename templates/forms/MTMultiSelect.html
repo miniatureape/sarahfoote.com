@@ -1,0 +1,10 @@
+        <script>
+                mtmultis = [];
+                window.addEvent('domready', function (){
+                    $$('select').each(function(multiselect){
+                        mtmultis[window.mtmultis.length] =  new MTMultiWidget({'datasrc': multiselect, 'setview': 'selected'});
+                   });
+               });
+               
+        </script>
+    

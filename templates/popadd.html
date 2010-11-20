@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>Add {{ field }}</title>
+        <script src="static/js/SelectBox.js"></script>                
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/RelatedObjectLookups.js"></script>
+    </head>
+    <body>
+        <h1>Add {{ field }}</h1>
+        <form method="post" action="/add/{{ field }}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <p><input type="submit" /> | <a href="javascript:window.close()">Cancel</a></p>
+        </form>
+    </body>
+</html>

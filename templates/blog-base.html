@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="content">
+        
+    {% block admin %}
+    {% if user.is_authenticated %}
+    <div class="admin"><a href="{% url main_add_post %}">new post</a></div>
+    {% endif %}
+    {% endblock %}
+
+    <div class="wrapper">
+        <div class="main">
+            {% block posts %}
+            {% for post in posts_list %}
+                {% if post.published or user.is_authenticated %}
+                    <div class="post {% if user.is_authenticated and not post.published %} unpublished {% endif %}
+                                    {% if user.is_authenticated and post.published %} published {% endif %}">
+                                    
+                        <h2>{{ post.title }}</h2>
+                        <div class="post-content">                            
+                            {{ post.text|safe }}
+                            <div class="clear"></div>
+                        </div>
+                        
+                        {% block items %}
+                        {% if post.items.exists %}
+                        <div class="blog-items">                            
+                            <h4>Items in this post are available for purchase:</h4>
+                            <ul>
+                                {% for item in post.items.all %}
+                                    <li class="blog-item">{% include 'item-thumb.html' %}</li>
+                                {% endfor %}
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        {% endif %}                        
+                        {% endblock %}
+                        
+                        {% block meta %}
+                        <p class="blog-meta">{{ post.modified|date:"M d, Y" }} / <a href="{% url main_post_detail slug=post.slug %}">permalink</a></p>
+                        {% endblock %}
+                        
+                        {% if user.is_authenticated %}
+                        <div class="admin">
+                            <a href="{% url main_edit_post object_id=post.id %}">edit</a> /
+                            <a href="{% url main_publish_post object_id=post.id %}">
+                                {% if post.published %}unpublish{% else %}publish {% endif %}</a>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+        {% endfor %}        
+        {% endblock %}
+                
+        </div>
+
+        {% block extranav %}
+        {% endblock %}
+
+    </div> 
+</div>
+{% endblock %}
