@@ -41,9 +41,6 @@ MEDIA_URL = '/static/'
 # Examples: "http://foo.com/media/", "/media/".
 ADMIN_MEDIA_PREFIX = '/media/'
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'z24-pk-5g9)i0-i!7=iivq%6)v9khs(516l3d)_ii6))g39p9h'
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
