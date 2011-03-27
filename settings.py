@@ -4,7 +4,7 @@ import os
 INTERNAL_IPS = ('127.0.0.1',)
 
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -51,7 +51,6 @@ TEMPLATE_LOADERS = (
 TEMPLATE_CONTEXT_PROCESSORS = ('django.core.context_processors.media',
                                'django.core.context_processors.request',
                                'django.core.context_processors.auth',)
-  
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',

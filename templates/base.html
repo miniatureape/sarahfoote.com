@@ -27,7 +27,8 @@
                 <div class="admin"><a href="{% url logout %}">logout</a></div>
             {% endif %}
             <h1 id="logo">
-                <a href="/"><span class="firstname">SARAH</span><br/><span class="lastname">FOOTE</span></a>
+                <img src="{{ MEDIA_URL }}img/logo.png" alt="Sarah Foote" />
+                <!-- <a href="/"><span class="firstname">SARAH</span><br/><span class="lastname">FOOTE</span></a> -->
             </h1>
             
             {% url main_post_list as archive %}

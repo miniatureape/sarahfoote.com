@@ -1,6 +1,8 @@
 *_settings.py
 *.sqlite
-static/imgs/content/*
+static/photos/*
+static/press/*
+static/item/*
 *.swp
 *.swo
 *.pyc
