@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'sarahfoote.main',
+    'sarahfoote.slideshow',
     'ckeditor',
 )
 

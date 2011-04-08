@@ -13,7 +13,6 @@
         <script src="{{ MEDIA_URL }}js/Quicksand_Dash_200.font.js" type="text/javascript"></script>
         <script src="{{ MEDIA_URL }}js/Quicksand_Light_300.font.js" type="text/javascript"></script>
         <script type="text/javascript">
-            Cufon.replace('h1', { fontFamily: 'Quicksand Dash' });
             Cufon.replace('#main-nav', { fontFamily: 'Quicksand Bold' });
             Cufon.replace('h2 ', { fontFamily: 'Quicksand Light' });
         </script>
@@ -28,7 +27,7 @@
             {% endif %}
             <h1 id="logo">
                 <img src="{{ MEDIA_URL }}img/logo.png" alt="Sarah Foote" />
-                <!-- <a href="/"><span class="firstname">SARAH</span><br/><span class="lastname">FOOTE</span></a> -->
+                <span class="jawsonly">Sarah Foote</span>
             </h1>
             
             {% url main_post_list as archive %}
@@ -38,7 +37,7 @@
             {% url main_contact as contact %}            
             
             <ul id="main-nav">
-                <li class="{% active request buy %}"><a href="{{ buy }}">BUY</a></li>
+                <li class="{% active request buy %}"><a href="http://sarahfoote.bigcartel.com/">BUY</a></li>
                 <li class="{% active request archive %}"><a href="{{ archive }}">BLOG</a></li>
                 <li class="{% active request press %}"><a href="{{ press }}">PRESS</a></li>
                 <li class="{% active request about %}"><a href="{{ about }}">ABOUT</a></li>                    

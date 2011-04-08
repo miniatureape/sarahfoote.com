@@ -13,7 +13,7 @@ def home(request):
         posts = BlogPost.objects.all().reverse()[:3]
     else:
         posts = BlogPost.objects.filter(published=True).reverse()[:3]
-    return render_to_response('front-blog.html', {'posts_list': posts},
+    return render_to_response('index.html', {'posts_list': posts},
                               context_instance=RequestContext(request))
 
 @login_required

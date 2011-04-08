@@ -153,6 +153,5 @@ urlpatterns = patterns('',
     url(r'^contact', contact, name="main_contact"),
     
     # Home
-    url(r'^$', items, name="main_home"),
-    #url(r'^$', home, name="main_home"),
+    url(r'^$', home, name="main_home"),
 )

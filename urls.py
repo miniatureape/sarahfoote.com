@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
+    (r'^slideshow/', include('sarahfoote.slideshow.urls')),
     (r'^ckeditor/', include('ckeditor.urls')),    
     url(r'^logout/', logout,{'next_page': '/'}, name="logout"),
     url(r'^login/', login, {'template_name': 'login.html',}, name="login"),
