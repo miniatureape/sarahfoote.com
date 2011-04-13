@@ -2,10 +2,10 @@ var WideSlideShow = new Class({
     Implements: [Options],
 
     options:{
-        larr: '/static/img/larr.png',
-        rarr: '/static/img/rarr.png',
+        larr: '',
+        rarr: '',
         loader: '/static/img/loader.gif',
-        delay: 5000,
+        delay: 5000
     },
 
     current: 0,
@@ -14,6 +14,12 @@ var WideSlideShow = new Class({
 
     initialize: function(elem, options, images){
         this.elem = elem;
+
+        // temp
+        this.elem.addEvent('click', function(){
+            clearTimeout(this.timer);
+            this.next();
+        }.bind(this));
         this.setOptions(options);
         this.images = images;
         this.addArrows(this.elem);
@@ -24,47 +30,23 @@ var WideSlideShow = new Class({
     setImages: function(images){
         this.images = images;
     },
-
-    makeArr: function(name, wrapperCls, arrCls, src){
-        var arrWrapper = new Element('div', {
-            'class': wrapperCls
-        });
-        var arr = new Element('img', {
-            src: src,
-            'class': arrCls
-        });
-        this[name] = arr;
-        return arrWrapper.grab(arr);
-    },
-
     addArrows: function(elem){
-        var larrWrapper = this.makeArr('larr', 'arrWrapper larrWrapper', 'arr larr', this.options.larr);
-        var rarrWrapper = this.makeArr('rarr', 'arrWrapper rarrWrapper', 'arr rarr', this.options.rarr);
+        var larr = new Element('img', {
+            src: this.options.larr,
+            styles: {
+                'position': 'absolute',
+                'top': '50%',
+                'left': '0',
+                'opacity': 0
+            },
+        });
 
-        elem.grab(larrWrapper);
-        elem.grab(rarrWrapper);
-        this.toggleArrowDisplay(larrWrapper, this.larr, this.rarr);
-        this.toggleArrowDisplay(rarrWrapper, this.rarr, this.larr);
-        this.initArrClicks(larrWrapper, function(){
-            this.next();
-        }.bind(this))
-        this.initArrClicks(rarrWrapper, function(){
-            this.prev();
-        }.bind(this))
-    },
+        var rarr = larr.clone();
+        rarr.setStyle('left', 'auto');
+        rarr.setStyle('right', '0');
 
-    toggleArrowDisplay: function(wrapper, arrow, other){
-        wrapper.addEvent('mouseover', function(){
-            arrow.fade('in');
-            other.fade('out');
-        })
-        wrapper.addEvent('mouseout', function(){
-            arrow.fade('out');
-        })
-    },
-
-    initArrClicks: function(elem, fn){
-        elem.addEvent('click', fn);
+        elem.grab(larr);
+        elem.grab(rarr);
     },
 
     addLoader: function(elem){
@@ -84,13 +66,16 @@ var WideSlideShow = new Class({
         this.loader.fade('toggle');
     },
 
-    prepareImage: function(image, styles){
+    prepareImage: function(image){
         var width = image.getCoordinates().width;
-        image.setStyles(styles);
+        image.setStyles({
+            left: width,
+            top: 0
+        });
         return image;
     },
 
-    slideIn: function(image, dir, start, end){
+    slideIn: function(image){
         // if there hasn't been a displayed image
         // just put the image in (don't slide in)
         // and mark it displayed
@@ -103,10 +88,10 @@ var WideSlideShow = new Class({
                 //this.displayed = image;
             }.bind(this)
         });
-        image.tween(dir, start, end);
+        image.tween('left', width, 0);
     },
 
-    slideOut: function(image, dir, start, end){
+    slideOut: function(image){
         var width = image.getCoordinates().width;
         image.set('tween', {
             duration: 800,
@@ -117,87 +102,32 @@ var WideSlideShow = new Class({
                 image.destroy();
             }.bind(this)
         });
-        image.tween(dir, start, end);
+        image.tween('left', 0, -width);
     },
 
-    slide: function(image, dir, start, end){
+    slide: function(image){
         if(this.displayed){
-            this.slideIn(image, dir, start, end);
-
-            var temp = start;
-            start = end;
-            end = -temp;
-
-            this.slideOut(this.displayed, dir, start, end);
+            this.slideIn(image);
+            this.slideOut(this.displayed);
         }
         this.displayed = image;
     },
 
-    grab: function(image, styles){
+    grab: function(image){
         image.setStyle('visibility','none');
         image.setStyle('position','absolute');
         this.elem.grab(image);
         // if there is already an image, set this
         // one off to the side
         if(this.displayed){
-            image = this.prepareImage(image, styles);
+            image = this.prepareImage(image);
         }
         image.setStyle('visibility','visible');
     },
 
     next: function(){
-        var width = this.elem.getCoordinates().width;
-        var src = this.images[this.current++ % this.images.length];
-        this.change(src,
-                    {left: width, top:0},
-                    'left',
-                    width,
-                    0);
-    },
-
-    prev: function(){
-        var width = this.elem.getCoordinates().width;
-        var src = this.images[--this.current % this.images.length];
-        this.change(src,
-                    {left: 0, top:0},
-                    'left',
-                    0,
-                    width);
-    },
-
-    change: function(src, prepare, dir, start, end){
-        console.log(arguments);
-        this.toggleLoader();
-        var image = Asset.image(src, {
-            onload: function(){
-                this.toggleLoader();
-                this.grab(image, prepare);
-                this.slide(image, dir, start, end);
-                this.timer = this.next.delay(this.options.delay, this); 
-            }.bind(this)
-        });
-    }
-
-/*
-    next: function(){
         this.toggleLoader();
         var src = this.images[this.current++ % this.images.length];
-        var image = Asset.image(src, {
-            onload: function(){
-                this.toggleLoader();
-                this.grab(image, {
-                              left: width,
-                              top: 0
-                          });
-                this.slide(image, tween);
-                this.timer = this.next.delay(this.options.delay, this); 
-            }.bind(this)
-        });
-    },
-
-    prev: function(){
-        this.toggleLoader();
-        var src = this.images[--this.current % this.images.length];
         var image = Asset.image(src, {
             onload: function(){
                 this.toggleLoader();
@@ -207,6 +137,5 @@ var WideSlideShow = new Class({
             }.bind(this)
         });
     }
-    */
 
 })

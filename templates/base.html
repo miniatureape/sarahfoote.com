@@ -37,7 +37,7 @@
             {% url main_contact as contact %}            
             
             <ul id="main-nav">
-                <li class="{% active request buy %}"><a href="http://sarahfoote.bigcartel.com/">BUY</a></li>
+                <li class="{% active request buy %}"><a href="{{ buy }}">SHOP</a></li>
                 <li class="{% active request archive %}"><a href="{{ archive }}">BLOG</a></li>
                 <li class="{% active request press %}"><a href="{{ press }}">PRESS</a></li>
                 <li class="{% active request about %}"><a href="{{ about }}">ABOUT</a></li>                    
@@ -50,7 +50,9 @@
             {% block content %}{% endblock %}
             {% block footer %}
                 <div class="clear"></div>
-                <div id="sarah-footer">copyright &copy; Sarah Foote</div>            
+                <div id="sarah-footer">copyright &copy; Sarah Foote
+                <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fsarahfoote.net&amp;layout=button_count&amp;show_faces=false&amp;width=150&amp;action=like&amp;font&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px; vertical-align:middle; margin:0 20px;" allowTransparency="true"></iframe>
+                </div>            
             {% endblock %}
         </div>
         <!-- Start Quantcast tag -->
