@@ -114,7 +114,7 @@ var WideSlideShow = new Class({
     },
 
     grab: function(image){
-        image.setStyle('visibility','none');
+        image.setStyle('visibility','hidden');
         image.setStyle('position','absolute');
         this.elem.grab(image);
         // if there is already an image, set this
